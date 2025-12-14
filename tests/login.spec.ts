@@ -6,5 +6,6 @@
     await page.locator('[data-test="login-submit"]').click();
 
     await expect(page).toHaveURL('https://practicesoftwaretesting.com/account');
+    await page.locator('[data-test="page-title"]').waitFor({ state: 'visible' });
     await expect(page.locator('[data-test="page-title"]')).toHaveText('My account', {ignoreCase: true});
   });
