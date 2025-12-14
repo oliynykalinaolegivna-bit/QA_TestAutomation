@@ -1,0 +1,22 @@
+{
+  "name": "qa_testautomation",
+  "version": "1.0.0",
+  "description": "QA automation JavaScript project with Playwright",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oliynykalinaolegivna-bit/QA_TestAutomation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oliynykalinaolegivna-bit/QA_TestAutomation/issues"
+  },
+  "homepage": "https://github.com/oliynykalinaolegivna-bit/QA_TestAutomation#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^25.0.2"
+  }
+}
