@@ -1,14 +1,21 @@
-  import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
+import { LoginPage } from '../pages/login.page';
+import { AccountPage } from '../pages/account.page';
+
+
   test('Verify login with valid credentials', async({page}) => {
-    await page.goto('https://practicesoftwaretesting.com/auth/login');
-    await page.locator('[data-test="email"]').fill('customer@practicesoftwaretesting.com');
-    await page.locator('[data-test="password"]').fill('welcome01');
-    await page.locator('[data-test="login-submit"]').click();
+    const loginPage = new LoginPage(page);
+    await loginPage.open();
+    await loginPage.performLogin('customer@practicesoftwaretesting.com', 'welcome01');
+    // await page.locator('[data-test="email"]').fill('customer@practicesoftwaretesting.com');
+    // await page.locator('[data-test="password"]').fill('welcome01');
+    // await page.locator('[data-test="login-submit"]').click();
 
-    await expect(page).toHaveURL('https://practicesoftwaretesting.com/account');
+    const accountPage = new AccountPage(page);
 
-    await page.waitForLoadState('domcontentloaded');
-    
-    await expect(page.locator('[data-test="page-title"]')).toBeVisible();
-    await expect(page.locator('[data-test="page-title"]')).toHaveText('My account', {ignoreCase: true});
-  });
+    await accountPage.expectUrl();
+    await accountPage.waitForPageLoad();
+    await accountPage.expectPageTitle();
+});
+
+
