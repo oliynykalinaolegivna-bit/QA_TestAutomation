@@ -6,7 +6,7 @@ export class ProductDetailsPage {
     productPrice: Locator;
     addToCartButton: Locator;
     addToFavoritesButton: Locator;
-    readonly expectedUrl = 'https://practicesoftwaretesting.com/account';
+
 
     constructor(page: Page) {
         this.page = page;
