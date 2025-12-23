@@ -1,7 +1,7 @@
 import { Locator, Page, expect } from "@playwright/test";
+import { BasePage } from './base.page';
 
-export class ProductDetailsPage {
-    page: Page;
+export class ProductDetailsPage extends BasePage {
     productName: Locator;
     productPrice: Locator;
     addToCartButton: Locator;
@@ -9,15 +9,11 @@ export class ProductDetailsPage {
 
 
     constructor(page: Page) {
-        this.page = page;
-        this.productName = page.locator('[data-test="product-name"]');
-        this.productPrice = page.locator('[data-test="unit-price"]');
-        this.addToCartButton = page.locator('[data-test="add-to-cart"]');
-        this.addToFavoritesButton = page.locator('[data-test="add-to-favorites"]');
-    }
-
-    async expectUrl() {
-        await expect(this.page).toHaveURL(/\/product\//);
+        super(page);
+        this.productName = page.getByTestId('product-name');
+        this.productPrice = page.getByTestId('unit-price');
+        this.addToCartButton = page.getByTestId('add-to-cart');
+        this.addToFavoritesButton = page.getByTestId('add-to-favorites');
     }
 
     async expectProductName(expectedName: string) {

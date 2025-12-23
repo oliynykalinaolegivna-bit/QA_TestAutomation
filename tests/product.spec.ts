@@ -16,7 +16,7 @@ test('Verify user can view product details', async({page}) => {
     
     // Assertions на новій сторінці деталей
 
-    await productDetailsPage.expectUrl();
+    await productDetailsPage.expectUrl(/\/product\//);
     await productDetailsPage.expectProductName('Combination Pliers');
     await productDetailsPage.expectProductPrice('14.15');
     await productDetailsPage.expectAddToCartButtonVisible();

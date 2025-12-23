@@ -1,25 +1,17 @@
 import { Locator, Page, expect } from "@playwright/test";
+import { BasePage } from './base.page';
 
-export class AccountPage {
-    page: Page;
+export class AccountPage extends BasePage {
     pageTitle: Locator;
-    readonly expectedUrl = 'https://practicesoftwaretesting.com/account';
+    readonly expectedPageTitle = 'My account';
 
     constructor (page: Page) {
-        this.page = page;
-        this.pageTitle = page.locator('[data-test="page-title"]');
+        super(page, '/account');
+        this.pageTitle = page.getByTestId('page-title');
     }
 
-    async waitForPageLoad() {
-        await this.page.waitForLoadState('domcontentloaded');
-    }
-
-    async expectUrl() {
-        await expect(this.page).toHaveURL(this.expectedUrl);
-    }
-
-    async expectPageTitle(expectedText: string = 'My account') {
+   async expectPageTitle() {
         await expect(this.pageTitle).toBeVisible();
-        await expect(this.pageTitle).toHaveText(expectedText, {ignoreCase: true});
-    }
+        await expect(this.pageTitle).toHaveText(this.expectedPageTitle, {ignoreCase: true});
+   }
 }

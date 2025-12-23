@@ -1,24 +1,21 @@
 import { Locator, Page } from "@playwright/test";
+import { BasePage } from './base.page';
 
-export class LoginPage {
-    page: Page;
+export class LoginPage extends BasePage {
     emailField: Locator;
     passwordField: Locator;
-    readonly url = 'https://practicesoftwaretesting.com/auth/login';
+    loginButton: Locator;
 
     constructor(page: Page) {
-        this.page = page;
-        this.emailField = this.page.locator('[data-test="email"]');
-        this.passwordField = this.page.locator('[data-test="password"]');
+        super(page, '/auth/login');
+        this.emailField = page.getByTestId('email');
+        this.passwordField = page.getByTestId('password');
+        this.loginButton = page.getByTestId('login-submit');
     }
-
-    async open() {
-        await this.page.goto(this.url);
-    }
-    
+ 
     async performLogin(email: string, password: string): Promise <void> {
             await this.emailField.fill(email);
             await this.passwordField.fill(password);
-            await this.page.locator('[data-test="login-submit"]').click();
+            await this.loginButton.click();
     }
 }

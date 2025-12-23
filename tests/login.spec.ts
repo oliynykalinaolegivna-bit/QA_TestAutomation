@@ -1,20 +1,17 @@
 import { test } from '@playwright/test';
 import { LoginPage } from '../pages/login.page';
 import { AccountPage } from '../pages/account.page';
+import { VALID_USER } from '../config/test-data';
 
 
   test('Verify login with valid credentials', async({page}) => {
     const loginPage = new LoginPage(page);
     await loginPage.open();
-    await loginPage.performLogin('customer@practicesoftwaretesting.com', 'welcome01');
-    // await page.locator('[data-test="email"]').fill('customer@practicesoftwaretesting.com');
-    // await page.locator('[data-test="password"]').fill('welcome01');
-    // await page.locator('[data-test="login-submit"]').click();
-
+    await loginPage.performLogin(VALID_USER.email, VALID_USER.password);
+    
     const accountPage = new AccountPage(page);
 
-    await accountPage.expectUrl();
-    await accountPage.waitForPageLoad();
+    await accountPage.expectUrl(/\/account/);
     await accountPage.expectPageTitle();
 });
 

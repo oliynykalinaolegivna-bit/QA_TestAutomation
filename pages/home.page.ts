@@ -1,18 +1,17 @@
 import { Page } from "@playwright/test";
+import { BasePage } from './base.page';
 
-export class HomePage {
-    page: Page;
-    readonly url = 'https://practicesoftwaretesting.com';
-
+export class HomePage extends BasePage {
+   
     constructor (page: Page) {
-        this.page = page;
+        super(page, '/');
     }
 
-    async open() {
-        await this.page.goto(this.url);
-    }
-
-    async clickProductByName(productName: string) {
-        await this.page.locator(`a.card:has([data-test="product-name"]:text("${productName}"))`).click();
+     async clickProductByName(productName: string) {
+        await this.page
+            .locator('a.card')
+            .filter({ hasText: productName })
+            .first()
+            .click();
     }
 }
