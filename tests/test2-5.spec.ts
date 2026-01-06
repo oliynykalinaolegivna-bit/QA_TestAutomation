@@ -1,11 +1,11 @@
 import { test } from '@playwright/test';
-import { HomePage } from '../pages/home.page';
+import { HomePage, SortOrder } from '../pages/home.page';
 
 test.use({ storageState: 'playwright/.auth/user.json' });
 
 const sortingTestCases = [
-    { sortOption: 'Name (A - Z)', order: 'asc' as const, testName: 'ascending' },
-    { sortOption: 'Name (Z - A)', order: 'desc' as const, testName: 'descending' },
+    { sortOption: 'Name (A - Z)', order: SortOrder.Asc, testName: 'ascending' },
+    { sortOption: 'Name (Z - A)', order: SortOrder.Desc, testName: 'descending' },
 ];
 
 sortingTestCases.forEach(({ sortOption, order, testName }) => {
@@ -26,8 +26,8 @@ sortingTestCases.forEach(({ sortOption, order, testName }) => {
 
 // Test 4 & 5: Verify user can perform sorting by price (asc & desc)
 const priceSortingTestCases = [
-    { sortOption: 'Price (Low - High)', order: 'asc' as const, testName: 'ascending' },
-    { sortOption: 'Price (High - Low)', order: 'desc' as const, testName: 'descending' },
+    { sortOption: 'Price (Low - High)', order: SortOrder.Asc, testName: 'ascending' },
+    { sortOption: 'Price (High - Low)', order: SortOrder.Desc, testName: 'descending' },
 ];
 
 priceSortingTestCases.forEach(({ sortOption, order, testName }) => {

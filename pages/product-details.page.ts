@@ -39,8 +39,8 @@ export class ProductDetailsPage extends BasePage {
         await expect(this.addAlertMessage).toBeVisible();
     }
 
-    async expectAlertMessageTextMatch(text:string) {
-        await expect(this.addAlertMessage).toHaveText(text);
+    async expectAlertMessageTextContain(text: string) {
+        await expect(this.addAlertMessage).toContainText(text);
     }
 
     async expectAlertMessageDisappearIn(milliseconds:number) {

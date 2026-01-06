@@ -7,6 +7,11 @@ export enum Category {
     Other = 'Other'
 }
 
+export enum SortOrder {
+    Asc = 'asc',
+    Desc = 'desc'
+}
+
 export class HomePage extends BasePage {
     readonly sortDropdown = this.page.getByTestId('sort');
     readonly productCards = this.page.locator('.card');
@@ -46,10 +51,10 @@ export class HomePage extends BasePage {
         return names.map(name => name.trim());
     }
 
-    async expectProductsSortedByName(order: 'asc' | 'desc') {
+    async expectProductsSortedByName(order: SortOrder) {
         const productNames = await this.getAllProductNames();
         const sortedNames = [...productNames].sort((a, b) => {
-            return order === 'asc'
+            return order === SortOrder.Asc
                 ? a.localeCompare(b)
                 : b.localeCompare(a);
         });
@@ -62,10 +67,10 @@ export class HomePage extends BasePage {
         return priceTexts.map(price => parseFloat(price.replace('$', '').trim()));
     }
 
-    async expectProductsSortedByPrice(order: 'asc' | 'desc') {
+    async expectProductsSortedByPrice(order: SortOrder) {
         const productPrices = await this.getAllProductPrices();
         const sortedPrices = [...productPrices].sort((a, b) => {
-            return order === 'asc' ? a - b : b - a;
+            return order === SortOrder.Asc ? a - b : b - a;
         });
         expect(productPrices).toEqual(sortedPrices);
     }

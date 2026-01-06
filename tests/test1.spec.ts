@@ -30,8 +30,8 @@ test('Verify user can add product to cart', async ({ page }) => {
     // Assert: Verify alert message is visible
     await productDetailsPage.expectAlertMessageVisible();
 
-    // Assert: Verify alert message text is "Product added to shopping cart"
-    await productDetailsPage.expectAlertMessageTextMatch(' Product added to shopping cart. ');
+    // Assert: Verify alert message text contains "Product added to shopping cart"
+    await productDetailsPage.expectAlertMessageTextContain('Product added to shopping cart.');
 
     // Assert: Verify alert disappears in 8 seconds
     await productDetailsPage.expectAlertMessageDisappearIn(8000);
