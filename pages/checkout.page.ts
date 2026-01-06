@@ -18,7 +18,7 @@ export class CheckoutPage extends BasePage {
         await expect(this.productQuantity).toHaveValue(items.toString())
     }
 
-    async expectProductTitle(title:string) {
+    async expectProductTitle(title: string) {
         await expect(this.productTitle).toHaveText(title);
     }
 
