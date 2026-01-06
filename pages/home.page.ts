@@ -10,7 +10,7 @@ export enum Category {
 export class HomePage extends BasePage {
     readonly sortDropdown = this.page.getByTestId('sort');
     readonly productCards = this.page.locator('.card');
-    readonly productNames = this.page.locator('[data-test="product-name"]');
+    readonly productNames = this.page.getByTestId('product-name');
     readonly productPrices = this.page.locator('[data-test="product-price"]');
     readonly categoryCheckboxes = this.page.locator('.checkbox');
 
