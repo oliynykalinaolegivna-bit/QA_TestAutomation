@@ -14,7 +14,7 @@ export class CheckoutPage extends BasePage {
         this.proceedToCheckoutButton = page.getByTestId('proceed-1');
     }
 
-    async expectProductQuantity(items:number) {
+    async expectProductQuantity(items: number) {
         await expect(this.productQuantity).toHaveValue(items.toString())
     }
 
