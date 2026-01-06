@@ -11,7 +11,7 @@ export class HomePage extends BasePage {
     readonly sortDropdown = this.page.getByTestId('sort');
     readonly productCards = this.page.locator('.card');
     readonly productNames = this.page.getByTestId('product-name');
-    readonly productPrices = this.page.locator('[data-test="product-price"]');
+    readonly productPrices = this.page.getByTestId('product-price');
     readonly categoryCheckboxes = this.page.locator('.checkbox');
 
     constructor (page: Page) {
