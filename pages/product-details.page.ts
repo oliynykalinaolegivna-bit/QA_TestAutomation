@@ -6,7 +6,8 @@ export class ProductDetailsPage extends BasePage {
     productPrice: Locator;
     addToCartButton: Locator;
     addToFavoritesButton: Locator;
-
+    addAlertMessage: Locator;
+    cartQuantity: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -14,6 +15,8 @@ export class ProductDetailsPage extends BasePage {
         this.productPrice = page.getByTestId('unit-price');
         this.addToCartButton = page.getByTestId('add-to-cart');
         this.addToFavoritesButton = page.getByTestId('add-to-favorites');
+        this.addAlertMessage = page.locator('#toast-container');
+        this.cartQuantity = page.getByTestId('cart-quantity');
     }
 
     async expectProductName(expectedName: string) {
@@ -30,5 +33,21 @@ export class ProductDetailsPage extends BasePage {
 
     async expectAddToFavoritesButtonVisible() {
         await expect(this.addToFavoritesButton).toBeVisible();
+    }
+
+    async expectAlertMessageVisible() {
+        await expect(this.addAlertMessage).toBeVisible();
+    }
+
+    async expectAlertMessageTextContain(text: string) {
+        await expect(this.addAlertMessage).toContainText(text);
+    }
+
+    async expectAlertMessageDisappearIn(milliseconds:number) {
+        await expect(this.addAlertMessage).toBeHidden({ timeout: milliseconds });
+    }
+
+    async expectCartQuantity(items:number) {
+        await expect(this.cartQuantity).toHaveText(items.toString())
     }
 }

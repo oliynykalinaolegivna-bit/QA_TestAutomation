@@ -144,3 +144,10 @@ vite.config.ts.timestamp-*
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
