@@ -1,13 +1,7 @@
-import { test } from '@playwright/test';
-import { HomePage } from '../pages/home.page';
-import { ProductDetailsPage } from '../pages/product-details.page';
-import { CheckoutPage } from '../pages/checkout.page';
+import { test } from '../fixtures/fixtures';
 
-// Test 1: Verify user can add product to cart
-test('Verify user can add product to cart', async ({ page }) => {
-    const homePage = new HomePage(page);
-    const productDetailsPage = new ProductDetailsPage(page);
-    const checkoutPage = new CheckoutPage(page);
+test('Verify user can add product to cart', async ({ app }) => {
+    const { homePage, productDetailsPage, cartPage } = app;
 
     // Step 1: Open homepage
     await homePage.open();
@@ -43,14 +37,14 @@ test('Verify user can add product to cart', async ({ page }) => {
     await productDetailsPage.cartQuantity.click();
 
     // Assert: Verify URL is /checkout
-    await checkoutPage.expectUrl(/\/checkout/);
+    await cartPage.expectUrl(/\/checkout/);
 
     // Assert: Verify the number of products in the cart table equals 1
-    await checkoutPage.expectProductQuantity(1);
+    await cartPage.expectProductQuantity(1);
 
     // Assert: Verify product title in the cart is "Slip Joint Pliers"
-    await checkoutPage.expectProductTitle('Slip Joint Pliers');
+    await cartPage.expectProductTitle('Slip Joint Pliers');
 
     // Assert: Verify "Proceed to Checkout" button is visible
-    await checkoutPage.expectProceedToCheckoutVisible();
+    await cartPage.expectProceedToCheckoutVisible();
 });

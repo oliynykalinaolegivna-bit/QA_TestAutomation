@@ -80,4 +80,19 @@ export class HomePage extends BasePage {
             expect(name.toLowerCase()).toContain(text.toLowerCase());
         }
     }
+
+    async getFirstProductInfo(): Promise<{ name: string; price: string }> {
+        await this.waitForProductsToLoad();
+        const name = await this.productNames.first().textContent() || '';
+        const priceText = await this.productPrices.first().textContent() || '';
+        return {
+            name: name.trim(),
+            price: priceText.trim()
+        };
+    }
+
+    async addFirstProductToCart() {
+        await this.waitForProductsToLoad();
+        await this.productCards.first().click();
+    }
 }
