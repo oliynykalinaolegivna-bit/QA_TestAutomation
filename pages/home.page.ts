@@ -1,16 +1,6 @@
 import { Page, expect } from "@playwright/test";
 import { BasePage } from './base.page';
-
-export enum Category {
-    HandTools = 'Hand Tools',
-    PowerTools = 'Power Tools',
-    Other = 'Other'
-}
-
-export enum SortOrder {
-    Asc = 'asc',
-    Desc = 'desc'
-}
+import { SortOrder } from '../enums';
 
 export class HomePage extends BasePage {
     readonly sortDropdown = this.page.getByTestId('sort');

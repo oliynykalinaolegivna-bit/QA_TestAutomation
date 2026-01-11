@@ -1,5 +1,6 @@
 import { test } from '@playwright/test';
-import { HomePage, SortOrder } from '../pages/home.page';
+import { HomePage } from '../pages/home.page';
+import { SortOrder } from '../enums';
 
 test.use({ storageState: 'playwright/.auth/user.json' });
 
