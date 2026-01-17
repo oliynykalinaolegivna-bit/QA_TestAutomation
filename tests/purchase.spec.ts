@@ -1,5 +1,5 @@
 import { test } from '../fixtures/fixtures';
-import { PaymentPage } from '../pages/payment.page';
+import { DUMMY_CREDIT_CARD, DUMMY_BILLING_ADDRESS } from '../utils/payment.utils';
 
 test.describe('Purchase flow', () => {
     test('Verify logged in user can complete purchase', async ({ loggedInApp }) => {
@@ -49,27 +49,13 @@ test.describe('Purchase flow', () => {
         await billingAddressPage.expectBillingFormVisible();
 
         // Step 10: Ввести відсутні поля на сторінці Billing Address
-        await billingAddressPage.fillBillingDetails({
-            address: '123 Test Street',
-            city: 'Test City',
-            state: 'Test State',
-            country: 'Ukraine',
-            postcode: '12345'
-        });
+        await billingAddressPage.fillBillingDetails(DUMMY_BILLING_ADDRESS);
 
         // Step 11: Перейти до оплати
         await billingAddressPage.clickProceedToPayment();
 
         // Step 12: Заповнити дані кредитної картки
-        // Expiration Date: +3 місяці від дати запуску тесту
-        const expirationDate = PaymentPage.getExpirationDatePlusMonths(3);
-
-        await paymentPage.fillCreditCardDetails({
-            cardNumber: '1111-1111-1111-1111',
-            expirationDate: expirationDate,
-            cvv: '111',
-            cardHolderName: 'Test Card Holder'
-        });
+        await paymentPage.fillCreditCardDetails(DUMMY_CREDIT_CARD);
 
         // Step 13: Підтвердити оплату
         await paymentPage.clickConfirm();
