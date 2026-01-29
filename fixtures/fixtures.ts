@@ -13,10 +13,25 @@ export const test = base.extend<AppFixtures>({
         await use(app);
     },
 
-    loggedInApp: async ({ app }, use) => {
-        await app.loginPage.open();
-        await app.loginPage.performLogin(VALID_USER.email, VALID_USER.password);
-        await app.accountPage.expectUrl(/\/account/);
+    loggedInApp: async ({ page, request }, use) => {
+        const response = await request.post('https://api.practicesoftwaretesting.com/users/login', {
+            data: {
+                email: VALID_USER.email,
+                password: VALID_USER.password
+            }
+        });
+
+        const jsonData = await response.json();
+        const token = jsonData.access_token;
+
+        await page.goto('https://practicesoftwaretesting.com');
+        await page.evaluate((token) => {
+            localStorage.setItem('auth-token', token);
+        }, token);
+
+        await page.reload();
+
+        const app = new App(page);
         await use(app);
     },
 });
