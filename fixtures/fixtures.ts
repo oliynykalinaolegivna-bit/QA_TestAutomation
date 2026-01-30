@@ -1,6 +1,6 @@
 import { test as base } from '@playwright/test';
 import { App } from '../pages/app';
-import { VALID_USER } from '../config/test-data';
+import { API_BASE_URL, VALID_USER } from '../config/test-data';
 
 type AppFixtures = {
     app: App;
@@ -14,7 +14,7 @@ export const test = base.extend<AppFixtures>({
     },
 
     loggedInApp: async ({ page, request }, use) => {
-        const response = await request.post('https://api.practicesoftwaretesting.com/users/login', {
+        const response = await request.post(`${API_BASE_URL}/users/login`, {
             data: {
                 email: VALID_USER.email,
                 password: VALID_USER.password
@@ -24,7 +24,7 @@ export const test = base.extend<AppFixtures>({
         const jsonData = await response.json();
         const token = jsonData.access_token;
 
-        await page.goto('https://practicesoftwaretesting.com');
+        await page.goto('/');
         await page.evaluate((token) => {
             localStorage.setItem('auth-token', token);
         }, token);

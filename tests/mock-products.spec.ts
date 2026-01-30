@@ -1,25 +1,18 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../fixtures/fixtures';
+import { API_BASE_URL } from '../config/test-data';
+import { generateMockProducts } from '../utils/mock-data.utils';
 
-test('Verify 20 products are displayed', async ({ page }) => {
-    await page.route('https://api.practicesoftwaretesting.com/products*', async route => {
+test('Verify 20 products are displayed', async ({ app }) => {
+    await app.page.route(`${API_BASE_URL}/products*`, async route => {
         const response = await route.fetch();
         const json = await response.json();
 
-        // Дублюємо товари щоб отримати 20
-        const originalProducts = json.data;
-        const products20 = [];
-        for (let i = 0; i < 20; i++) {
-            const product = { ...originalProducts[i % originalProducts.length] };
-            product.id = `product-${i}`;
-            product.name = `Product ${i + 1}`;
-            products20.push(product);
-        }
-        json.data = products20;
+        json.data = generateMockProducts(json.data, 20);
 
         await route.fulfill({ response, json });
     });
 
-    await page.goto('https://practicesoftwaretesting.com/');
+    await app.homePage.open();
 
-    await expect(page.locator('[data-test="product-name"]')).toHaveCount(20);
+    await expect(app.homePage.productNames).toHaveCount(20);
 });
