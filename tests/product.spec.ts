@@ -5,7 +5,6 @@ test('Verify user can view product details', { tag: '@smoke' }, async ({ app }) 
 
     // Step 1: Open homepage
     await homePage.open();
-    await homePage.waitForProductsToLoad();
 
     // Step 2: Click on product
     await homePage.clickProductByName('Combination Pliers');

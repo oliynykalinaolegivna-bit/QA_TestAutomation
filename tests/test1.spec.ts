@@ -5,7 +5,6 @@ test('Verify user can add product to cart', { tag: '@smoke' }, async ({ app }) =
 
     // Step 1: Open homepage
     await homePage.open();
-    await homePage.waitForProductsToLoad();
 
     // Step 2: Click on the product "Slip Joint Pliers"
     await homePage.clickProductByName('Slip Joint Pliers');
