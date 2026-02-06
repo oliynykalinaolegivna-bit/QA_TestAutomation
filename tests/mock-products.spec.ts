@@ -2,7 +2,7 @@ import { test, expect } from '../fixtures/fixtures';
 import { API_BASE_URL } from '../config/test-data';
 import { generateMockProducts } from '../utils/mock-data.utils';
 
-test('Verify 20 products are displayed', async ({ app }) => {
+test('Verify 20 products are displayed', { tag: '@regression' }, async ({ app }) => {
     await app.page.route(`${API_BASE_URL}/products*`, async route => {
         const response = await route.fetch();
         const json = await response.json();

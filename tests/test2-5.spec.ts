@@ -10,7 +10,7 @@ const sortingTestCases = [
 ];
 
 sortingTestCases.forEach(({ sortOption, order, testName }) => {
-    test(`Verify user can sort products by name ${testName}`, async ({ page }) => {
+    test(`Verify user can sort products by name ${testName}`, { tag: '@regression' }, async ({ page }) => {
         const homePage = new HomePage(page);
 
         // Step 1: Open homepage
@@ -32,7 +32,7 @@ const priceSortingTestCases = [
 ];
 
 priceSortingTestCases.forEach(({ sortOption, order, testName }) => {
-    test(`Verify user can sort products by price ${testName}`, async ({ page }) => {
+    test(`Verify user can sort products by price ${testName}`, { tag: '@regression' }, async ({ page }) => {
         const homePage = new HomePage(page);
 
         // Step 1: Open homepage
@@ -48,7 +48,7 @@ priceSortingTestCases.forEach(({ sortOption, order, testName }) => {
 });
 
 // Test 6: Verify user can filter products by category
-test('Verify user can filter products by category', async ({ page }) => {
+test('Verify user can filter products by category', { tag: '@regression' }, async ({ page }) => {
     const homePage = new HomePage(page);
 
     // Step 1: Open homepage

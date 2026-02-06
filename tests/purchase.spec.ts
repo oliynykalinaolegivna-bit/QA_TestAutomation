@@ -1,7 +1,7 @@
 import { test } from '../fixtures/fixtures';
 import { DUMMY_CREDIT_CARD, DUMMY_BILLING_ADDRESS } from '../utils/payment.utils';
 
-test.describe('Purchase flow', () => {
+test.describe('Purchase flow', { tag: '@regression' }, () => {
     test('Verify logged in user can complete purchase', async ({ loggedInApp }) => {
         const {
             homePage,
