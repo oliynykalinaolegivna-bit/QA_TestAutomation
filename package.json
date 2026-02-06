@@ -4,7 +4,12 @@
   "description": "QA automation JavaScript project with Playwright",
   "main": "index.js",
   "scripts": {
-    "lint": "npx eslint . --fix"
+    "lint": "npx eslint . --fix",
+    "test": "npx playwright test",
+    "test:smoke": "npx playwright test --project=smoke",
+    "test:regression": "npx playwright test --project=regression",
+    "test:smoke:regression": "npx playwright test --project=smoke --project=regression",
+    "test:report": "npx playwright show-report"
   },
   "repository": {
     "type": "git",
