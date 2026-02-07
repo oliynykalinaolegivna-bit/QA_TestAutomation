@@ -1,8 +1,6 @@
-import { test } from '@playwright/test';
+import { test } from '../fixtures/fixtures';
 import { HomePage } from '../pages/home.page';
 import { SortOrder } from '../enums';
-
-test.use({ storageState: 'playwright/.auth/user.json' });
 
 const sortingTestCases = [
     { sortOption: 'Name (A - Z)', order: SortOrder.Asc, testName: 'ascending' },

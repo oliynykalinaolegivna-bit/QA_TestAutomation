@@ -23,7 +23,7 @@ export class HomePage extends BasePage {
 
     async selectSortOption(option: string) {
         const responsePromise = this.page.waitForResponse(
-            response => response.url().includes('/products') && response.status() === 200
+            response => response.url().includes('/products') && response.url().includes('sort=') && response.status() === 200
         );
         await this.sortDropdown.selectOption({ label: option });
         await responsePromise;
