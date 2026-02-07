@@ -53,9 +53,9 @@ test('Verify user can filter products by category', { tag: '@regression' }, asyn
     await homePage.open();
     await homePage.waitForProductsToLoad();
 
-    // Step 2: Select Sander in the category list
-    await homePage.selectCategory('Sander');
+    // Step 2: Select Hammer in the category list
+    await homePage.selectCategory('Hammer');
 
-    // Assert: Verify the displayed products contain Sander in their names
-    await homePage.expectAllProductsContain('Sander');
+    // Assert: Verify the displayed products contain Hammer in their names
+    await homePage.expectAllProductsContain('Hammer');
 });

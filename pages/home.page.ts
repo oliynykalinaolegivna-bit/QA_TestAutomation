@@ -13,6 +13,15 @@ export class HomePage extends BasePage {
         super(page, '/');
     }
 
+    async open() {
+        const responsePromise = this.page.waitForResponse(
+            response => response.url().includes('/products') && response.status() === 200
+        );
+        await this.page.goto(this.path);
+        await responsePromise;
+        await this.waitForProductsToLoad();
+    }
+
     async clickProductByName(productName: string) {
         await this.page
             .locator('a.card')
