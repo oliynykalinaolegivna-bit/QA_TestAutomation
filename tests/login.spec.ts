@@ -1,7 +1,7 @@
 import { test } from '../fixtures/fixtures';
 import { VALID_USER } from '../config/test-data';
 
-test('Verify login with valid credentials', async ({ app }) => {
+test('Verify login with valid credentials', { tag: '@smoke' }, async ({ app }) => {
     const { loginPage, accountPage } = app;
 
     await loginPage.open();

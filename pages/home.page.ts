@@ -13,6 +13,15 @@ export class HomePage extends BasePage {
         super(page, '/');
     }
 
+    async open() {
+        const responsePromise = this.page.waitForResponse(
+            response => response.url().includes('/products') && response.status() === 200
+        );
+        await this.page.goto(this.path);
+        await responsePromise;
+        await this.waitForProductsToLoad();
+    }
+
     async clickProductByName(productName: string) {
         await this.page
             .locator('a.card')
@@ -23,7 +32,7 @@ export class HomePage extends BasePage {
 
     async selectSortOption(option: string) {
         const responsePromise = this.page.waitForResponse(
-            response => response.url().includes('/products') && response.status() === 200
+            response => response.url().includes('/products') && response.url().includes('sort=') && response.status() === 200
         );
         await this.sortDropdown.selectOption({ label: option });
         await responsePromise;
@@ -32,7 +41,6 @@ export class HomePage extends BasePage {
 
     async waitForProductsToLoad() {
         await this.productCards.first().waitFor({ state: 'visible' });
-        await this.page.waitForLoadState('networkidle');
     }
 
     async getAllProductNames(): Promise<string[]> {
@@ -42,13 +50,15 @@ export class HomePage extends BasePage {
     }
 
     async expectProductsSortedByName(order: SortOrder) {
-        const productNames = await this.getAllProductNames();
-        const sortedNames = [...productNames].sort((a, b) => {
-            return order === SortOrder.Asc
-                ? a.localeCompare(b)
-                : b.localeCompare(a);
-        });
-        expect(productNames).toEqual(sortedNames);
+        await expect(async () => {
+            const productNames = await this.getAllProductNames();
+            const sortedNames = [...productNames].sort((a, b) => {
+                return order === SortOrder.Asc
+                    ? a.localeCompare(b)
+                    : b.localeCompare(a);
+            });
+            expect(productNames).toEqual(sortedNames);
+        }).toPass();
     }
 
     async getAllProductPrices(): Promise<number[]> {
@@ -58,11 +68,13 @@ export class HomePage extends BasePage {
     }
 
     async expectProductsSortedByPrice(order: SortOrder) {
-        const productPrices = await this.getAllProductPrices();
-        const sortedPrices = [...productPrices].sort((a, b) => {
-            return order === SortOrder.Asc ? a - b : b - a;
-        });
-        expect(productPrices).toEqual(sortedPrices);
+        await expect(async () => {
+            const productPrices = await this.getAllProductPrices();
+            const sortedPrices = [...productPrices].sort((a, b) => {
+                return order === SortOrder.Asc ? a - b : b - a;
+            });
+            expect(productPrices).toEqual(sortedPrices);
+        }).toPass();
     }
 
     async selectCategory(categoryName: string) {
@@ -75,10 +87,12 @@ export class HomePage extends BasePage {
     }
 
     async expectAllProductsContain(text: string) {
-        const productNames = await this.getAllProductNames();
-        for (const name of productNames) {
-            expect(name.toLowerCase()).toContain(text.toLowerCase());
-        }
+        await expect(async () => {
+            const productNames = await this.getAllProductNames();
+            for (const name of productNames) {
+                expect(name.toLowerCase()).toContain(text.toLowerCase());
+            }
+        }).toPass();
     }
 
     async getFirstProductInfo(): Promise<{ name: string; price: string }> {

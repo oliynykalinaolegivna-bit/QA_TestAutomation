@@ -1,6 +1,6 @@
 import { test } from '../fixtures/fixtures';
 
-test('Verify user can view product details', async ({ app }) => {
+test('Verify user can view product details', { tag: '@smoke' }, async ({ app }) => {
     const { homePage, productDetailsPage } = app;
 
     // Step 1: Open homepage

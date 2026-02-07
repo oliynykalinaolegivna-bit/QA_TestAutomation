@@ -1,8 +1,6 @@
-import { test } from '@playwright/test';
+import { test } from '../fixtures/fixtures';
 import { HomePage } from '../pages/home.page';
 import { SortOrder } from '../enums';
-
-test.use({ storageState: 'playwright/.auth/user.json' });
 
 const sortingTestCases = [
     { sortOption: 'Name (A - Z)', order: SortOrder.Asc, testName: 'ascending' },
@@ -10,7 +8,7 @@ const sortingTestCases = [
 ];
 
 sortingTestCases.forEach(({ sortOption, order, testName }) => {
-    test(`Verify user can sort products by name ${testName}`, async ({ page }) => {
+    test(`Verify user can sort products by name ${testName}`, { tag: '@regression' }, async ({ page }) => {
         const homePage = new HomePage(page);
 
         // Step 1: Open homepage
@@ -32,7 +30,7 @@ const priceSortingTestCases = [
 ];
 
 priceSortingTestCases.forEach(({ sortOption, order, testName }) => {
-    test(`Verify user can sort products by price ${testName}`, async ({ page }) => {
+    test(`Verify user can sort products by price ${testName}`, { tag: '@regression' }, async ({ page }) => {
         const homePage = new HomePage(page);
 
         // Step 1: Open homepage
@@ -48,16 +46,16 @@ priceSortingTestCases.forEach(({ sortOption, order, testName }) => {
 });
 
 // Test 6: Verify user can filter products by category
-test('Verify user can filter products by category', async ({ page }) => {
+test('Verify user can filter products by category', { tag: '@regression' }, async ({ page }) => {
     const homePage = new HomePage(page);
 
     // Step 1: Open homepage
     await homePage.open();
     await homePage.waitForProductsToLoad();
 
-    // Step 2: Select Sander in the category list
-    await homePage.selectCategory('Sander');
+    // Step 2: Select Hammer in the category list
+    await homePage.selectCategory('Hammer');
 
-    // Assert: Verify the displayed products contain Sander in their names
-    await homePage.expectAllProductsContain('Sander');
+    // Assert: Verify the displayed products contain Hammer in their names
+    await homePage.expectAllProductsContain('Hammer');
 });

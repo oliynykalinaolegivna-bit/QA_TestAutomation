@@ -29,7 +29,11 @@ export const test = base.extend<AppFixtures>({
             localStorage.setItem('auth-token', token);
         }, token);
 
+        const reloadResponse = page.waitForResponse(
+            resp => resp.url().includes('/products') && resp.status() === 200
+        );
         await page.reload();
+        await reloadResponse;
 
         const app = new App(page);
         await use(app);
